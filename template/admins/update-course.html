@@ -1,0 +1,104 @@
+{% extends "admins/bases.html" %}
+{% load static %}
+{% block content %}
+
+
+  <!--app-content open-->
+    <div class="main-content app-content mt-0" xmlns:a="http://www.w3.org/1999/html">
+                <div class="side-app">
+
+                    <!-- CONTAINER -->
+                    <div class="main-container container-fluid">
+                        <!-- PAGE-HEADER -->
+                        <div class="page-header">
+                            <h1 class="page-title">Teachers</h1>
+                            <div>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Course</li>
+                                </ol>
+                            </div>
+                        </div>
+                        <!-- PAGE-HEADER END -->
+                         <!-- Row -->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Course update</h3>
+                                    </div>
+                                    <div class="card-body">
+                                         <form action="{% url 'update_course' course.id %}" method="POST" enctype="multipart/form-data">
+                                             {% csrf_token %}
+                                            <div class="">
+                                                <div class="form-group">
+                                                    <label for="exampleInputName" class="form-label">Course name</label>
+                                                    <input type="text" class="form-control" value="{{ course.name }}" id="exampleInputName"  name="name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputName" class="form-label">Course price</label>
+                                                    <input type="number" class="form-control" value="{{ course.price}}" id="exampleInputName"  name="price">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputAbout" class="form-label">Course About</label>
+                                                    <textarea class="form-control" value="{{ course.about }}" id="exampleInputAbout"   name="about">{{ course.about }}</textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputAbout" class="form-label">Course Text</label>
+                                                    <textarea rows="5" class="form-control" value="{{ course.text }}" id="exampleInputAbout"   name="text">{{ course.text }}</textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-group">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Course Teacher</label>
+                                                        <select name="teacher" class="form-control form-select" data-bs-placeholder="Select Country">
+                                                         <option value="{{ course.teacher.id }}" selected>{{ course.teacher.name }}--{{ course.teacher.ielts }}</option>
+
+                                                            {% for i in teacher %}
+                                                            <option value="{{ i.id }}" >{{ i.name }}--{{ i.ielts }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                </div>
+
+                                            </div>
+                                                      </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputIelts" class="form-label">Course Start time</label>
+                                                    <input type="text" class="form-control" value="{{ course.schedule_start }}" id="exampleInputIelts"  name="schedule_start">
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <label for="exampleInputIelts" class="form-label">Course Finish time</label>
+                                                    <input type="text" class="form-control" value="{{ course.schedule_finish }}" id="exampleInputIelts"  name="schedule_finish">
+                                                </div>
+
+
+                                                <div class="form-group">
+
+                                                            <label class="form-label">Upload Course Image </label>
+                                                            <input name="image" type="file" class="dropify" onchange="readURL(this);"
+                                                                data-height="180" />
+
+                                                </div>
+
+
+
+
+
+                                            </div>
+                                            <button type="submit" class=" col-12 btn btn-primary mt-4 mb-0">Submit</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Row -->
+
+
+                    </div>
+                    <!-- CONTAINER END -->
+                </div>
+            </div>
+            <!--app-content close-->
+{% endblock %}

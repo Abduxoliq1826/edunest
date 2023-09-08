@@ -1,0 +1,123 @@
+{% extends "admins/bases.html" %}
+{% load static %}
+{% block content %}
+
+
+  <!--app-content open-->
+    <div class="main-content app-content mt-0" xmlns:a="http://www.w3.org/1999/html">
+                <div class="side-app">
+
+                    <!-- CONTAINER -->
+                    <div class="main-container container-fluid">
+                        <!-- PAGE-HEADER -->
+                        <div class="page-header">
+                            <h1 class="page-title">Student</h1>
+                            <div>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Student</li>
+                                </ol>
+                            </div>
+                        </div>
+                        <!-- PAGE-HEADER END -->
+                         <!-- Row -->
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">News students for Course</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered border text-nowrap mb-0" id="basic-edit">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Phone number</th>
+                                                        <th>Course name</th>
+                                                        <th>Status</th>
+                                                        <th>Delete</th>
+                                                        <th>Deleted</th>
+                                                        <th>Finished</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for i in student %}
+                                                    <tr>
+                                                        <td>
+                                                            {{i.name}}
+                                                        </td>
+                                                        <td>
+                                                            {{i.phone_number}}
+                                                       </td>
+                                                        <td>
+                                                            {{i.cource.name}}
+                                                       </td>
+                                                       <td>
+                                                            {{i.get_status_display}}
+                                                       </td>
+
+                                                        <td><a href="{% url 'delete_student' i.id %}" class="btn btn-outline-danger">Delete</a></td>
+                                                        <td><a href="{% url 'deleted_student' i.id %}" class="btn btn-outline-warning">Deleted</a></td>
+                                                        <td><a href="{% url 'finished_student' i.id %}" class="btn btn-outline-success">Finished</a></td>
+                                                    </tr>
+                                                {% endfor %}
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Row -->
+                         <div class="row row-sm">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">News students </h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table id="file-datatable" class="table table-bordered text-nowrap key-buttons border-bottom">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="border-bottom-0">Name</th>
+                                                        <th class="border-bottom-0">Phone Number</th>
+                                                        <th class="border-bottom-0">Course name</th>
+                                                        <th class="border-bottom-0">Mock name</th>
+                                                        <th class="border-bottom-0">Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for i in student %}
+                                                    <tr>
+                                                        <td>{{ i.name}}</td>
+                                                        <td>{{ i.phone_number }}</td>
+                                                        <td>{{ i.cource.name }}</td>
+                                                        <td>{{ i.mock.name }}</td>
+                                                        <td>{{ i.get_status_display }}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <!-- CONTAINER END -->
+                </div>
+            </div>
+
+
+
+
+    </div>
+            <!--app-content close-->
+{% endblock %}

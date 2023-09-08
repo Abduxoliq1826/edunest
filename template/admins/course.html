@@ -1,0 +1,161 @@
+{% extends "admins/bases.html" %}
+{% load static %}
+{% block content %}
+
+
+  <!--app-content open-->
+    <div class="main-content app-content mt-0" xmlns:a="http://www.w3.org/1999/html">
+                <div class="side-app">
+
+                    <!-- CONTAINER -->
+                    <div class="main-container container-fluid">
+                        <!-- PAGE-HEADER -->
+                        <div class="page-header">
+                            <h1 class="page-title">Courses</h1>
+                            <div>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Courses</li>
+                                </ol>
+                            </div>
+                        </div>
+                        <!-- PAGE-HEADER END -->
+                         <!-- Row -->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                        <button type="button" class="col-12 btn btn-green me-3  mt-2" data-bs-toggle="modal" data-bs-target="#input-modal" data-bs-whatever="@mdo">ADD COURSE</button>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Courses table</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered border text-nowrap mb-0" id="basic-edit">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Image</th>
+                                                        <th>Name</th>
+                                                        <th>Teacher</th>
+                                                        <th>Price</th>
+                                                        <th>Schedule Start -- Finish</th>
+                                                        <th>Update</th>
+                                                        <th>Delete</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for i in course %}
+                                                    <tr>
+                                                        <td>
+                                                            {% if i.image %}
+                                                            <img style="border: 2px solid #0dcaf0 ; border-radius: 10%" width="60rem"  height="60rem" src="{{ i.image.url }}">
+                                                            {% else %}
+                                                                <img style="border: 2px solid #0dcaf0 ; border-radius: 10%" width="60rem"  height="60rem" src="../static/img/logo.png">
+
+                                                            {% endif %}
+
+                                                        </td>
+                                                        <td>
+                                                            <a href="{% url 'course_single' i.id %}">{{ i.name }}</a>
+                                                       </td>
+                                                        <td>{{ i.teacher_name }}</td>
+                                                        <td>{{ i.price }}</td>
+                                                        <td>{{ i.schedule_start }}--{{ i.schedule_finish }}</td>
+                                                        <td><a href="{% url 'update_course' i.id %}" class="btn btn-outline-primary">Update</a></td>
+                                                        <td><a href="{% url 'delete_course' i.id %}" class="btn btn-outline-danger">Delete</a></td>
+                                                    </tr>
+                                                {% endfor %}
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Row -->
+
+
+                    </div>
+                    <!-- CONTAINER END -->
+                </div>
+            </div>
+                <div class="modal fade" id="input-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal-content-demo">
+                <div class="modal-header">
+                    <h6 class="modal-title">Add Teacher</h6>
+                    <button class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form action="{% url 'add_course' %}" method="POST" enctype="multipart/form-data">
+                                             {% csrf_token %}
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <label for="exampleInputName" class="form-label">Course name</label>
+                                                    <input type="text" class="form-control" id="exampleInputName"  name="name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputName" class="form-label">Course price</label>
+                                                    <input type="number" class="form-control" id="exampleInputName"  name="price">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputAbout" class="form-label">Course About</label>
+                                                    <textarea class="form-control"id="exampleInputAbout"   name="about"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputAbout" class="form-label">Course Text</label>
+                                                    <textarea rows="5" class="form-control" id="exampleInputAbout"   name="text"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-group">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Course Teacher</label>
+                                                        <select name="teacher" class="form-control form-select" data-bs-placeholder="Select Country">
+
+                                                            {% for i in teacher %}
+                                                            <option value="{{ i.id }}" >{{ i.name }}--{{ i.ielts }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                </div>
+
+                                            </div>
+                                                      </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputIelts" class="form-label">Course Start time</label>
+                                                    <input type="text" class="form-control" id="exampleInputIelts"  name="schedule_start">
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <label for="exampleInputIelts" class="form-label">Course Finish time</label>
+                                                    <input type="text" class="form-control" id="exampleInputIelts"  name="schedule_finish">
+                                                </div>
+
+
+                                                <div class="form-group">
+
+                                                            <label class="form-label">Upload Course Image </label>
+                                                            <input name="image" type="file" class="dropify" onchange="readURL(this);"
+                                                                data-height="180" />
+
+                                                </div>
+
+
+
+
+
+                                            </div>
+                                            <button type="submit" class=" col-12 btn btn-primary mt-4 mb-0">Submit</button>
+                                        </form>
+            </div>
+        </div>
+    </div>
+            <!--app-content close-->
+{% endblock %}

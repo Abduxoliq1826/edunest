@@ -1,0 +1,173 @@
+{% extends "admins/bases.html" %}
+{% load static %}
+{% block content %}
+
+
+  <!--app-content open-->
+            <div class="main-content app-content mt-0">
+                <div class="side-app">
+
+                    <!-- CONTAINER -->
+                    <div class="main-container container-fluid">
+
+                        <!-- PAGE-HEADER -->
+                        <div class="page-header">
+                            <h1 class="page-title">Dashboard 01</h1>
+                            <div>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Dashboard 01</li>
+                                </ol>
+                            </div>
+                        </div>
+                        <!-- PAGE-HEADER END -->
+
+                        <!-- ROW-1 -->
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xl-3">
+                                        <div class="card overflow-hidden">
+                                            <div class="card-body">
+                                                <div class="d-flex">
+                                                    <div class="mt-2">
+                                                        <h4 class="">Total Students</h4>
+                                                        <h2 class="mb-0 number-font">{{ student_all }}</h2>
+                                                    </div>
+                                                    <div class="ms-auto">
+                                                        <div class="chart-wrapper mt-1">
+                                                            <canvas id="saleschart"
+                                                                class="h-8 w-9 chart-dropshadow"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xl-3">
+                                        <div class="card overflow-hidden">
+                                            <div class="card-body">
+                                                <div class="d-flex">
+                                                    <div class="mt-2">
+                                                        <h4 class="">Delete Students</h4>
+                                                        <h2 class="mb-0 number-font">{{ student_deleted}}</h2>
+                                                    </div>
+                                                    <div class="ms-auto">
+                                                        <div class="chart-wrapper mt-1">
+                                                            <canvas id="leadschart"
+                                                                class="h-8 w-9 chart-dropshadow"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xl-3">
+                                        <div class="card overflow-hidden">
+                                            <div class="card-body">
+                                                <div class="d-flex">
+                                                    <div class="mt-2">
+                                                        <h4 class="">Finish Students</h4>
+                                                        <h2 class="mb-0 number-font">{{ student_finished }}</h2>
+                                                    </div>
+                                                    <div class="ms-auto">
+                                                        <div class="chart-wrapper mt-1">
+                                                            <canvas id="profitchart"
+                                                                class="h-8 w-9 chart-dropshadow"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xl-3">
+                                        <div class="card overflow-hidden">
+                                            <div class="card-body">
+                                                <div class="d-flex">
+                                                    <div class="mt-2">
+                                                        <h4 class="">New Students</h4>
+                                                        <h2 class="mb-0 number-font">{{ student_news }}</h2>
+                                                    </div>
+                                                    <div class="ms-auto">
+                                                        <div class="chart-wrapper mt-1">
+                                                            <canvas id="costchart"
+                                                                class="h-8 w-9 chart-dropshadow"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ROW-1 END -->
+
+                        <!-- ROW-2 -->
+                        <div class="row">
+
+                            <!-- COL END -->
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <div class="card overflow-hidden">
+                                    <div class="card-body pb-0 bg-recentorder">
+                                        <h3 class="card-title text-white">  </h3>
+                                        <div class="chartjs-wrapper-demo">
+                                            <canvas id="recentorders" class="chart-dropshadow"></canvas>
+                                        </div>
+                                    </div>
+                                    <div id="flotback-chart" class="flot-background"></div>
+
+                                </div>
+                            </div>
+                            <!-- COL END -->
+                        </div>
+                         <div class="row row-sm">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">File Export</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table id="file-datatable" class="table table-bordered text-nowrap key-buttons border-bottom">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="border-bottom-0">Name</th>
+                                                        <th class="border-bottom-0">Phone Number</th>
+                                                        <th class="border-bottom-0">Course name</th>
+                                                        <th class="border-bottom-0">Course Teacher</th>
+                                                        <th class="border-bottom-0">Course Start Time</th>
+                                                        <th class="border-bottom-0">Course Finish Time</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for i in student %}
+                                                    <tr>
+                                                        <td>{{ i.name}}</td>
+                                                        <td>{{ i.phone_number }}</td>
+                                                        <td>{{ i.cource.name }}</td>
+                                                        <td>{{ i.cource.teacher_name }}</td>
+                                                        <td>{{ i.cource.schedule_start}}</td>
+                                                        <td>{{ i.cource.schedule_finish}}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ROW-2 END -->
+
+
+
+                    </div>
+                    <!-- CONTAINER END -->
+                </div>
+            </div>
+            <!--app-content close-->
+{% endblock %}

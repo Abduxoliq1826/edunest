@@ -1,0 +1,62 @@
+{% extends "admins/bases.html" %}
+{% load static %}
+{% block content %}
+
+
+  <!--app-content open-->
+    <div class="main-content app-content mt-0" xmlns:a="http://www.w3.org/1999/html">
+                <div class="side-app">
+
+                    <!-- CONTAINER -->
+                    <div class="main-container container-fluid">
+                        <!-- PAGE-HEADER -->
+                        <div class="page-header">
+                            <h1 class="page-title">Mock</h1>
+                            <div>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Mock</li>
+                                </ol>
+                            </div>
+                        </div>
+                        <!-- PAGE-HEADER END -->
+                         <!-- Row -->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Mock update</h3>
+                                    </div>
+                                    <div class="card-body">
+                                         <form action="{% url 'update_mock' mock.id %}" method="POST" enctype="multipart/form-data">
+                                             {% csrf_token %}
+                                            <div class="">
+                                                <div class="form-group">
+                                                    <label for="exampleInputName1" class="form-label">Mock name</label>
+                                                    <input type="text" class="form-control" value="{{ mock.name }}" id="exampleInputName1"  name="name" required>
+                                                </div>
+                                               <div class="form-group">
+                                                    <label for="exampleInputName2" class="form-label">Mock price</label>
+                                                    <input type="number" class="form-control" value="{{ mock.price}}" id="exampleInputName2"  name="price" required>
+                                                </div>
+                                               <div class="form-group">
+                                                    <label for="exampleInputName" class="form-label">Mock date</label>
+                                                    <label  class="form-label">{{mock.date}}</label>
+                                                    <input type="date" class="form-control" value="{{ mock.date }}" id="exampleInputName"  name="date" >
+                                                </div>
+
+                                            <button type="submit" class=" col-12 btn btn-primary mt-4 mb-0">Submit</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Row -->
+
+
+                    </div>
+                    <!-- CONTAINER END -->
+                </div>
+            </div>
+            <!--app-content close-->
+{% endblock %}

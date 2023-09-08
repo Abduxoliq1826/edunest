@@ -1,0 +1,118 @@
+{% extends "admins/bases.html" %}
+{% load static %}
+{% block content %}
+
+
+  <!--app-content open-->
+    <div class="main-content app-content mt-0" xmlns:a="http://www.w3.org/1999/html">
+                <div class="side-app">
+
+                    <!-- CONTAINER -->
+                    <div class="main-container container-fluid">
+                        <!-- PAGE-HEADER -->
+                        <div class="page-header">
+                            <h1 class="page-title">Links</h1>
+                            <div>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Mock</li>
+                                </ol>
+                            </div>
+                        </div>
+                        <!-- PAGE-HEADER END -->
+                         <!-- Row -->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                        <button type="button" class="col-12 btn btn-green me-3  mt-2" data-bs-toggle="modal" data-bs-target="#input-modal" data-bs-whatever="@mdo">ADD MOCK</button>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Mock table</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered border text-nowrap mb-0" id="basic-edit">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Price</th>
+                                                        <th>Date</th>
+                                                        <th>Status</th>
+                                                        <th>Active/Disactive</th>
+                                                        <th>Update</th>
+                                                        <th>Delete</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for i in mock %}
+                                                    <tr>
+                                                        <td><a href="{%url 'student_mock' i.id%} " >{{ i.name }}</a></td>
+                                                        <td>{{ i.price }}</td>
+                                                        <td>{{ i.date }}</td>
+                                                        <td>{{ i.get_status_display }}</td>
+                                                        {% if i.status == 1%}
+                                                            <td><a href="{% url 'disactive_mock' i.id %}" class="btn btn-outline-success">Disactive</a></td>
+                                                        {%else%}
+                                                            <td><a href="{% url 'active_mock' i.id %}" class="btn btn-outline-success">Active</a></td>
+                                                        {%endif%}
+                                                        <td><a href="{% url 'update_mock' i.id %}" class="btn btn-outline-primary">Update</a></td>
+                                                        <td><a href="{% url 'delete_mock' i.id %}" class="btn btn-outline-danger">Delete</a></td>
+                                                    </tr>
+                                                {% endfor %}
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Row -->
+
+
+                    </div>
+                    <!-- CONTAINER END -->
+                </div>
+            </div>
+                <div class="modal fade" id="input-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal-content-demo">
+                <div class="modal-header">
+                    <h6 class="modal-title">Add Link</h6>
+                    <button class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form action="{% url 'add_mock' %}" method="POST" enctype="multipart/form-data">
+                                             {% csrf_token %}
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <label for="exampleInputName1" class="form-label">Mock name</label>
+                                                    <input type="text" class="form-control" id="exampleInputName1"  name="name">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="exampleInputName" class="form-label">Mock price</label>
+                                                    <input type="number" class="form-control" id="exampleInputName"  name="price">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="exampleInputName2" class="form-label">Mock price</label>
+                                                    <input type="date" class="form-control" id="exampleInputName2"  name="date">
+                                                </div>
+
+
+
+                                            </div>
+                                            <button type="submit" class=" col-12 btn btn-primary mt-4 mb-0">Submit</button>
+                                        </form>
+            </div>
+        </div>
+    </div>
+            <!--app-content close-->
+{% endblock %}

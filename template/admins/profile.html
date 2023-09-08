@@ -1,0 +1,151 @@
+{% extends "admins/bases.html" %}
+{% load static %}
+{% block content %}
+
+            <div class="main-content app-content mt-0">
+                <div class="side-app">
+
+                    <!-- CONTAINER -->
+                    <div class="main-container container-fluid">
+
+                        <!-- PAGE-HEADER -->
+                        <div class="page-header">
+                            <h1 class="page-title">Edit Profile</h1>
+                            <div>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0)">Pages</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Edit Profile</li>
+                                </ol>
+                            </div>
+                        </div>
+                        <!-- PAGE-HEADER END -->
+
+                        <!-- ROW-1 OPEN -->
+                        <div class="row">
+                            <div class="col-xl-4">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="card-title">Edit Password</div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="text-center chat-image mb-5">
+                                            {% if user.img %}
+                                            <div class="avatar avatar-xxl chat-profile mb-3 brround">
+                                            <img src="{{user.img.url}}" alt="Admin"  width="80px" height="80px" class="rounded-circle p-1 bg-primary" width="110">
+                                            </div>
+                                            {% else %}
+
+                                            <div class="avatar avatar-xxl chat-profile mb-3 brround">
+                                                <img src="{% static './assets/images/users/user.png' %}" alt="Admin"  width="80px" height="80px" class="rounded-circle p-1 bg-primary" width="110">
+                                            </div>
+                                            {% endif %}
+                                            <div class="main-chat-msg-name">
+                                                    <h5 class="mb-1 text-dark fw-semibold">{{ user.username }}</h5>
+                                            </div>
+                                        </div>
+                                    <form action="{% url 'reset_password' %} " method="POST">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <label class="form-label">Current Password</label>
+                                            <div class="wrap-input100 validate-input input-group" id="Password-toggle">
+                                                <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                                                    <i class="zmdi zmdi-eye text-muted" aria-hidden="true"></i>
+                                                </a>
+                                                <input class="input100 form-control" type="password" name="password" placeholder="Current Password" autocomplete="current-password">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">New Password</label>
+                                            <div class="wrap-input100 validate-input input-group" id="Password-toggle1">
+                                                <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                                                    <i class="zmdi zmdi-eye text-muted" aria-hidden="true"></i>
+                                                </a>
+                                                <input class="input100 form-control" type="password" name="new_password" placeholder="New Password" autocomplete="new-password">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Confirm Password</label>
+                                            <div class="wrap-input100 validate-input input-group" id="Password-toggle2">
+                                                <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                                                    <i class="zmdi zmdi-eye text-muted" aria-hidden="true"></i>
+                                                </a>
+                                                <input class="input100 form-control" type="password" name="confirm_password" placeholder="Confirm Password" autocomplete="new-password">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="card-footer text-end">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+
+                                        <a href="javascript:void(0)" class="btn btn-danger">Cancel</a>
+                                    </div>
+                                </form>
+                                </div>
+
+                            </div>
+                            <div class="col-xl-8">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Edit Profile</h3>
+                                    </div>
+                                    <form action="{% url 'profile' %}" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="card-body">
+                                            <div class="control-group form-group  row">
+                                                        <div class="col-lg-12 col-sm-12">
+                                                            <label class="form-label">Upload Profile Image </label>
+                                                            <input name="img" type="file" class="dropify" onchange="readURL(this);"
+                                                                data-height="180" />
+                                                        </div>
+                                                    </div>
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputname">Username</label>
+                                                        <input type="text" class="form-control" id="exampleInputname" placeholder="Username" name="username">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputname">First Name</label>
+                                                        <input type="text" class="form-control" id="exampleInputname" placeholder="First Name" name="first_name">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputname1">Last Name</label>
+                                                        <input type="text" class="form-control" id="exampleInputname1" placeholder="Enter Last Name" name="last_name">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Email address</label>
+                                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email address" name="email">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputnumber">Contact Number</label>
+                                                <input type="number" class="form-control" id="exampleInputnumber" placeholder="Contact number" name="number">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">About Me</label>
+                                                <textarea class="form-control" rows="6" name="bio">My bio.........</textarea>
+                                            </div>
+
+                                        </div>
+                                        <div class="card-footer text-end">
+                                            <button class="btn btn-success my-1" type="submit">Save</button>
+                                            <a href="javascript:void(0)" class="btn btn-danger my-1">Cancel</a>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- ROW-1 CLOSED -->
+
+                    </div>
+                    <!--CONTAINER CLOSED -->
+
+                </div>
+            </div>
+            {% endblock %}
